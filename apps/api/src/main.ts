@@ -1,7 +1,4 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+
 
 import 'dotenv/config';
 import express from 'express';
@@ -77,7 +74,7 @@ app.get('/api/organizations', (req, res) => {
           org.name.toLowerCase().includes(searchLower) ||
           org.description.toLowerCase().includes(searchLower) ||
           org.category.toLowerCase().includes(searchLower)
-      );
+      );revalidatePath
     }
 
     res.json(filteredOrganizations);

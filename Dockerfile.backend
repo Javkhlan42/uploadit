@@ -1,0 +1,53 @@
+# Dockerfile.backend - NestJS app at apps/api using Nx
+
+# ---------- Base image ----------
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+
+# ---------- Dependencies ----------
+FROM base AS deps
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+COPY nx.json tsconfig.base.json tsconfig.json ./
+COPY eslint.config.mjs jest.config.ts jest.preset.js ./
+
+RUN npm ci
+
+# ---------- Build stage ----------
+FROM base AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json package-lock.json ./
+COPY nx.json tsconfig.base.json tsconfig.json ./
+COPY eslint.config.mjs jest.config.ts jest.preset.js ./
+COPY apps/api ./apps/api
+COPY libs ./libs
+
+# Build libs first and create symlinks
+ENV NX_DAEMON=false
+RUN npx nx sync
+RUN npx nx run-many -t build -p @yellow-book/contract @yellow-book/config
+RUN mkdir -p node_modules/@yellow-book && \
+    ln -s ../../libs/contract node_modules/@yellow-book/contract && \
+    ln -s ../../libs/config node_modules/@yellow-book/config
+
+# Build only the api app
+RUN npx nx build api --prod
+
+# ---------- Runtime image ----------
+FROM node:20-alpine AS runner
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+ENV NODE_ENV=production
+
+# Copy built output
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 4000
+
+CMD ["node", "dist/main.js"]

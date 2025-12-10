@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import dynamicImport from 'next/dynamic';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Phone, Mail, MapPin, Globe, Clock, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
@@ -10,9 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
 import { Badge } from '../../ui/badge';
 import { Separator } from '../../ui/separator';
 
-// Dynamic import for Map component (client-side only)
-const Map = dynamic(() => import('../../ui/Map'), {
-  ssr: false,
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
+const Map = dynamicImport(() => import('../../ui/Map'), {
   loading: () => (
     <div className="w-full h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
       <div className="text-gray-500">Газрын зураг уншиж байна...</div>
@@ -20,16 +22,6 @@ const Map = dynamic(() => import('../../ui/Map'), {
   ),
 });
 
-// Generate static params for all organizations at build time
-export async function generateStaticParams() {
-  const organizations = await organizationService.getOrganizations();
-  
-  return organizations.map((org) => ({
-    id: org.id.toString(),
-  }));
-}
-
-// Generate metadata for each page
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   try {
     const id = parseInt(params.id);

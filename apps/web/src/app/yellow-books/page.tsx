@@ -6,8 +6,8 @@ import { Card, CardContent, CardHeader } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Phone, Mail, MapPin, Sparkles } from 'lucide-react';
 
-// ISR: Revalidate every 60 seconds
-export const revalidate = 60;
+// Force dynamic rendering to avoid build-time API fetch
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Yellow Books - Бүх бизнес',

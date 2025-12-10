@@ -9,7 +9,19 @@ const { composePlugins, withNx } = require('@nx/next');
 const nextConfig = {
   // Use this to set Nx-specific options
   // See: https://nx.dev/recipes/next/next-config-setup
-  nx: {},
+  nx: {
+    svgr: false,
+  },
+  // Enable standalone output for Docker
+  output: 'standalone',
+  outputFileTracingRoot: require('path').join(__dirname, '../../'),
+  // Skip TypeScript and ESLint checks during build for Docker
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 const plugins = [

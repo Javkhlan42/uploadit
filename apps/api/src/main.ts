@@ -74,7 +74,7 @@ app.get('/api/organizations', (req, res) => {
           org.name.toLowerCase().includes(searchLower) ||
           org.description.toLowerCase().includes(searchLower) ||
           org.category.toLowerCase().includes(searchLower)
-      );revalidatePath
+      );
     }
 
     res.json(filteredOrganizations);

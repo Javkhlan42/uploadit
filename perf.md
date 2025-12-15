@@ -161,7 +161,7 @@ curl -X POST "http://localhost:3000/api/revalidate?secret=my-secret" \
 | FCP | ~800-1500ms | ~80-400ms | **75-90% faster** |
 | LCP | ~2000-3000ms | ~200-800ms | **60-90% faster** |
 | TTI | ~3000-5000ms | ~1000-2500ms | **50-70% faster** |
-
+.. 
 ---
 
 ## Дараагийн эрсдэл & сайжруулах зүйлүүд (Next Risks & Improvements)

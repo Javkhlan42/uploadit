@@ -117,7 +117,8 @@ app.get('/api/yellow-books', async (req, res) => {
     console.error('Error fetching yellow book entries:', error);
     res.status(500).json({ error: 'Failed to fetch yellow book entries' });
   }
-});
+}); 
+// ..
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

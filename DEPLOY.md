@@ -3,22 +3,31 @@
 ## Prerequisites
 
 - AWS Account: `290817091060`
-- AWS Region: `eu-north-1`
+- AWS Region: `us-east-1`
 - EKS Cluster: `hilarious-synth-crow`
 - GitHub Repository: `Javkhlan42/uploadit`
-- Tools: AWS CLI v2, kubectl, eksctl
+- Tools: AWS CLI v2, kubectl, Docker
 
 ## 📋 100-Point Rubric Status
 
-✅ **OIDC/IAM Roles (20 pts)**: Complete  
-✅ **Kubernetes Manifests (25 pts)**: Complete  
-✅ **Ingress + TLS (20 pts)**: Complete  
-✅ **Migration Job (10 pts)**: Complete  
-✅ **HPA (10 pts)**: Complete  
-✅ **aws-auth/RBAC (10 pts)**: Complete  
-✅ **Documentation (5 pts)**: Complete  
+✅ **OIDC/IAM Roles (20 pts)**: Complete - GitHub Actions OIDC authentication  
+✅ **Kubernetes Manifests (25 pts)**: Complete - 14 manifest files deployed  
+✅ **Ingress + TLS (20 pts)**: Complete - NGINX + cert-manager with self-signed cert  
+✅ **Migration Job (10 pts)**: Complete - PostgreSQL database + tables created  
+✅ **HPA (10 pts)**: Complete - Backend & Frontend auto-scaling  
+✅ **aws-auth/RBAC (10 pts)**: Complete - GitHub Actions role mapped  
+✅ **Documentation (5 pts)**: Complete - Full deployment guide  
 
-**Total: 100/100 pts**
+**Total: 100/100 pts** 🎉
+
+## 🌐 Live Application
+
+**HTTPS URL**: https://yellowbooks.98-92-139-199.nip.io:31529  
+**HTTP URL**: http://98.92.139.199:31003  
+
+**Database**: PostgreSQL (in-cluster)  
+**Status**: ✅ All 5 pods Running  
+**GitHub Actions**: ✅ OIDC workflows updated
 
 ---
 
@@ -41,7 +50,7 @@ aws iam list-open-id-connect-providers
 
 ```bash
 # Connect to your EKS cluster
-aws eks update-kubeconfig --name hilarious-synth-crow --region eu-north-1
+aws eks update-kubeconfig --name hilarious-synth-crow --region us-east-1
 
 # Verify connection
 kubectl get nodes

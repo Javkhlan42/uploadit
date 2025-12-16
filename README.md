@@ -9,7 +9,7 @@ A modern Yellow Pages-style directory web application built with Nx monorepo, fe
 
 ## 🏗️ Architecture
 
-```
+``` d 
 yellow-book/
 ├── apps/
 │   ├── web/          # Next.js frontend (Port 3000)

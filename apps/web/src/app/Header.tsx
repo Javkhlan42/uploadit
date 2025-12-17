@@ -29,6 +29,13 @@ const Header = () => {
             >
               Лавлах
             </Link>
+            <Link 
+              href="/yellow-books/assistant" 
+              className="flex items-center gap-2 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              <span>🤖</span>
+              AI Assistant
+            </Link>
           </nav>
 
           {/* Mobile menu button */}

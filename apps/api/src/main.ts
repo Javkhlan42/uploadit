@@ -11,6 +11,7 @@ import { Organization } from './types/organization';
 import { validateSession } from './middleware/session.middleware';
 import { setCsrfToken, csrfProtection } from './middleware/csrf.middleware';
 import { requireAdmin } from './middleware/auth.middleware';
+import { searchWithAI } from './middleware/ai-search.middleware';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -152,6 +153,9 @@ app.get('/api/csrf-token', (req, res) => {
   const token = req.cookies['csrf-token'];
   res.json({ csrfToken: token });
 });
+
+// AI-powered search endpoint
+app.post('/api/ai/yellow-books/search', searchWithAI);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

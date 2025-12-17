@@ -19,6 +19,7 @@ model YellowBook {
   description  String?
   website      String?
   email        String?
+  embedding    String?  @db.Text // Vector embedding for semantic search
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 

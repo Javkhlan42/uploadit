@@ -2,18 +2,41 @@ import Link from 'next/link';
 
 export default function UnauthorizedPage() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">403 - Unauthorized</h1>
-        <p className="text-gray-600 mb-8">
-          You don&apos;t have permission to access this page.
-        </p>
-        <Link
-          href="/"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-        >
-          Go Home
-        </Link>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center p-4">
+      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center border border-gray-100">
+        <div className="mb-6">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-full mb-4">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">403</h1>
+          <h2 className="text-xl font-semibold text-red-600 mb-4">Хандах эрхгүй</h2>
+          <p className="text-gray-600 leading-relaxed">
+            Уучлаарай, та энэ хуудас руу хандах эрхгүй байна. Зөвхөн админ хэрэглэгч админ самбар руу нэвтрэх боломжтой.
+          </p>
+        </div>
+        
+        <div className="space-y-3">
+          <Link
+            href="/"
+            className="block w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            Нүүр хуудас руу буцах
+          </Link>
+          <Link
+            href="/api/auth/signout"
+            className="block w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all duration-200 font-medium"
+          >
+            Гарах
+          </Link>
+        </div>
+        
+        <div className="mt-6 pt-6 border-t border-gray-100">
+          <p className="text-sm text-gray-500">
+            Хэрэв та админ эрх авах шаардлагатай бол системийн админтай холбогдоно уу.
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-# Ingress with TLS using nip.io wildcard DNS
+# Ingress with TLS using sharnom.systems domain
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,18 +7,15 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "selfsigned-issuer"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"  # Allow HTTP for testing
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - yellowbooks.34-230-15-250.nip.io
-    - yellowbooks.98-91-193-170.nip.io
-    - yellowbooks.107-21-187-21.nip.io
-    - yellowbooks.34-229-119-172.nip.io
-    secretName: yellowbooks-tls
+    - sharnom.systems
+    - www.sharnom.systems
+    secretName: sharnom-systems-tls
   rules:
-  - host: yellowbooks.34-230-15-250.nip.io
+  - host: sharnom.systems
     http:
       paths:
       - path: /api
@@ -35,41 +32,7 @@ spec:
             name: frontend-service
             port:
               number: 80
-  - host: yellowbooks.107-21-187-21.nip.io
-    http:
-      paths:
-      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-service
-            port:
-              number: 4000
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-service
-            port:
-              number: 80
-  - host: yellowbooks.98-91-193-170.nip.io
-    http:
-      paths:
-      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-service
-            port:
-              number: 4000
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: frontend-service
-            port:
-              number: 80
-  - host: yellowbooks.34-229-119-172.nip.io
+  - host: www.sharnom.systems
     http:
       paths:
       - path: /api

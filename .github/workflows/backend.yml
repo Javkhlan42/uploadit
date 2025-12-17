@@ -90,6 +90,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Run Database Migration and Seed
+        run: |
+          aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+          echo "=== Running Prisma Migration and Seed ==="
+          kubectl delete job prisma-migrate -n yellowbooks --ignore-not-found=true
+          kubectl apply -f k8s/migration-job.yaml
+          kubectl wait --for=condition=complete --timeout=5m job/prisma-migrate -n yellowbooks || kubectl logs -n yellowbooks job/prisma-migrate --tail=50
+          echo "=== Migration Job Status ==="
+          kubectl get job prisma-migrate -n yellowbooks
+          kubectl logs -n yellowbooks job/prisma-migrate --tail=50
+
       - name: Deploy to EKS
         run: |
           aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}

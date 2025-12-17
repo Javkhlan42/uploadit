@@ -29,6 +29,31 @@ spec:
             configMapKeyRef:
               name: yellowbooks-config
               key: NODE_ENV
+        - name: NEXTAUTH_URL
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: NEXTAUTH_URL
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: NEXTAUTH_SECRET
+        - name: GITHUB_ID
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: GITHUB_ID
+        - name: GITHUB_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: GITHUB_SECRET
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: DATABASE_URL
         resources:
           requests:
             memory: "256Mi"

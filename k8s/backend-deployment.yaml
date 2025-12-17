@@ -45,6 +45,16 @@ spec:
             secretKeyRef:
               name: yellowbooks-secrets
               key: DATABASE_URL
+        - name: FRONTEND_URL
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: FRONTEND_URL
+        - name: CSRF_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: yellowbooks-secrets
+              key: NEXTAUTH_SECRET
         resources:
           requests:
             memory: "256Mi"

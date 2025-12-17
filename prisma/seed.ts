@@ -4,6 +4,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log('🌱 Seeding database with Mongolian business data...');
+  
   // Clear existing data
   await prisma.yellowBook.deleteMany();
   await prisma.user.deleteMany();

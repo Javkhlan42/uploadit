@@ -3,7 +3,7 @@ import './global.css';
 
 export const metadata: Metadata = {
   title: 'Yellow Book - Business Directory',
-  description: 'Discover the best local businesses in your area - sharnom.systems',
+  description: 'Discover the best local businesses in your area on sharnom.systems',
 };
 
 export default function RootLayout({

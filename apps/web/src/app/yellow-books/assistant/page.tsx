@@ -41,10 +41,7 @@ export default function AssistantPage() {
     try {
       // Use backend API URL directly for production
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-      const apiEndpoint = apiUrl.startsWith('http://sharnom.systems') 
-        ? apiUrl.replace('http://', 'https://') 
-        : apiUrl;
-      const res = await fetch(`${apiEndpoint}/api/ai/yellow-books/search`, {
+      const res = await fetch(`${apiUrl}/api/ai/yellow-books/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

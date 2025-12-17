@@ -13,7 +13,7 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   ...props
-}: any) {
+}: Record<string, unknown>) {
   return (
     <div className="p-3">
       <p>Calendar component requires react-day-picker package</p>

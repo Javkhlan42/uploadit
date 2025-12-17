@@ -6,11 +6,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.GITHUB_ID ?? '',
+      clientSecret: process.env.GITHUB_SECRET ?? '',
       authorization: {
         params: {
           scope: 'read:user user:email',
@@ -26,7 +26,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async session({ session, user }) {
       // Add role to session from database user
       if (session.user && user) {
-        session.user.role = (user as any).role || 'user';
+        session.user.role = (user as { role?: string }).role || 'user';
         session.user.id = user.id;
       }
       return session;

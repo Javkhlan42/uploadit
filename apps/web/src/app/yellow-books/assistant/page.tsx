@@ -75,7 +75,7 @@ export default function AssistantPage() {
             🤖 AI Assistant
           </h1>
           <p className="text-lg text-gray-600">
-            Ask me anything about local businesses and I'll help you find what you need!
+            Ask me anything about local businesses and I&apos;ll help you find what you need!
           </p>
         </div>
 

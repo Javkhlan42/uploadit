@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 import type { Organization } from '../../../types/organization';
 
 // Fix default marker icon
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+delete (L.Icon.Default.prototype as Record<string, unknown>)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
@@ -50,7 +50,7 @@ export default function MapIsland({ organizations }: MapIslandProps) {
         {orgsWithCoords.map((org) => (
           <Marker
             key={org.id}
-            position={[org.coordinates!.lat, org.coordinates!.lng]}
+            position={[org.coordinates?.lat ?? 0, org.coordinates?.lng ?? 0]}
           >
             <Popup>
               <div className="p-2 min-w-[200px]">
@@ -70,7 +70,7 @@ export default function MapIsland({ organizations }: MapIslandProps) {
                     Дэлгэрэнгүй үзэх →
                   </Link>
                   <a
-                    href={getGoogleMapsUrl(org.coordinates!.lat, org.coordinates!.lng, org.name)}
+                    href={getGoogleMapsUrl(org.coordinates?.lat ?? 0, org.coordinates?.lng ?? 0, org.name)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm"

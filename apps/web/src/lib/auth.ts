@@ -31,4 +31,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     error: '/auth/error',
   },
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === 'development',
+  trustHost: true, // Trust the host in production
 });

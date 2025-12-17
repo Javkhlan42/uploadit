@@ -7,6 +7,12 @@
 
 A modern Yellow Pages-style directory web application built with Nx monorepo, featuring a Next.js frontend and Express.js backend with Prisma ORM.
 
+## 🤖 Lab 8: AI-Powered Search
+- **OpenAI Integration**: Semantic search using text-embedding-ada-002
+- **Redis Caching**: 1-hour TTL for AI responses
+- **Mongolian Business Data**: 10 businesses from Ulaanbaatar, Darkhan, Erdenet
+- **GPT-4 Responses**: Natural language answers to user queries
+
 ## 🏗️ Architecture
 
 ``` d 

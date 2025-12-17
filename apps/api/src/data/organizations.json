@@ -1,0 +1,141 @@
+[
+  {
+    "id": 1,
+    "name": "Downtown Medical Center",
+    "category": "Эрүүл мэнд",
+    "description": "Full-service medical facility providing comprehensive healthcare services to the community.",
+    "fullDescription": "Downtown Medical Center has been serving our community for over 25 years, providing exceptional healthcare services with state-of-the-art equipment and experienced medical professionals.",
+    "phone": "(555) 123-4567",
+    "email": "info@downtownmedical.com",
+    "address": "123 Main Street, Downtown, NY 10001",
+    "website": "www.downtownmedical.com",
+    "logo": "🏥",
+    "featured": true,
+    "services": ["Emergency Care", "Family Medicine", "Cardiology", "Pediatrics", "Radiology"],
+    "socialLinks": {
+      "facebook": "facebook.com/downtownmedical",
+      "twitter": "twitter.com/downtownmed",
+      "linkedin": "linkedin.com/company/downtown-medical"
+    },
+    "hours": "24/7 Emergency, Mon-Fri 8AM-6PM Regular Services",
+    "coordinates": {
+      "lat": 40.7589,
+      "lng": -73.9851
+    }
+  },
+  {
+    "id": 2,
+    "name": "Bella's Italian Restaurant",
+    "category": "Ресторан",
+    "description": "Authentic Italian cuisine with fresh ingredients and traditional recipes.",
+    "fullDescription": "Family-owned restaurant serving authentic Italian dishes with imported ingredients and recipes passed down through generations.",
+    "phone": "(555) 234-5678",
+    "email": "reservations@bellasitalian.com",
+    "address": "456 Oak Avenue, Little Italy, NY 10002",
+    "website": "www.bellasitalian.com",
+    "logo": "🍝",
+    "featured": true,
+    "services": ["Dine-in", "Takeout", "Catering", "Private Events", "Wine Selection"],
+    "socialLinks": {
+      "facebook": "facebook.com/bellasitalian",
+      "instagram": "instagram.com/bellasitalian"
+    },
+    "hours": "Mon-Thu 5PM-10PM, Fri-Sat 5PM-11PM, Sun 4PM-9PM",
+    "coordinates": {
+      "lat": 40.7195,
+      "lng": -73.9973
+    }
+  },
+  {
+    "id": 3,
+    "name": "TechFix Computer Repair",
+    "category": "Технологи",
+    "description": "Professional computer and mobile device repair services.",
+    "fullDescription": "Certified technicians providing fast, reliable repair services for all types of computers, laptops, tablets, and smartphones.",
+    "phone": "(555) 345-6789",
+    "email": "support@techfixrepair.com",
+    "address": "789 Tech Boulevard, Silicon Valley, NY 10003",
+    "website": "www.techfixrepair.com",
+    "logo": "💻",
+    "featured": false,
+    "services": ["Computer Repair", "Phone Repair", "Data Recovery", "Virus Removal", "Hardware Upgrades"],
+    "socialLinks": {
+      "facebook": "facebook.com/techfixrepair",
+      "twitter": "twitter.com/techfixrepair"
+    },
+    "hours": "Mon-Fri 9AM-7PM, Sat 10AM-5PM",
+    "coordinates": {
+      "lat": 40.7282,
+      "lng": -74.0776
+    }
+  },
+  {
+    "id": 4,
+    "name": "Green Thumb Landscaping",
+    "category": "Гэрийн үйлчилгээ",
+    "description": "Professional landscaping and garden maintenance services.",
+    "fullDescription": "Expert landscaping services including design, installation, and maintenance of residential and commercial properties.",
+    "phone": "(555) 456-7890",
+    "email": "info@greenthumblandscaping.com",
+    "address": "321 Garden Lane, Suburbia, NY 10004",
+    "website": "www.greenthumblandscaping.com",
+    "logo": "🌿",
+    "featured": true,
+    "services": ["Landscape Design", "Lawn Care", "Tree Service", "Irrigation", "Seasonal Cleanup"],
+    "socialLinks": {
+      "facebook": "facebook.com/greenthumblandscaping",
+      "instagram": "instagram.com/greenthumblandscaping"
+    },
+    "hours": "Mon-Fri 7AM-6PM, Sat 8AM-4PM",
+    "coordinates": {
+      "lat": 40.7489,
+      "lng": -73.9680
+    }
+  },
+  {
+    "id": 5,
+    "name": "City Law Associates",
+    "category": "Хууль зүйн үйлчилгээ",
+    "description": "Experienced attorneys providing comprehensive legal services.",
+    "fullDescription": "Full-service law firm with expertise in personal injury, family law, business law, and estate planning.",
+    "phone": "(555) 567-8901",
+    "email": "contact@citylawassociates.com",
+    "address": "654 Justice Drive, Legal District, NY 10005",
+    "website": "www.citylawassociates.com",
+    "logo": "⚖️",
+    "featured": false,
+    "services": ["Personal Injury", "Family Law", "Business Law", "Estate Planning", "Real Estate Law"],
+    "socialLinks": {
+      "linkedin": "linkedin.com/company/city-law-associates",
+      "twitter": "twitter.com/citylawassoc"
+    },
+    "hours": "Mon-Fri 9AM-6PM, Evening appointments available",
+    "coordinates": {
+      "lat": 40.7074,
+      "lng": -74.0113
+    }
+  },
+  {
+    "id": 6,
+    "name": "Fresh Market Grocery",
+    "category": "Худалдаа",
+    "description": "Local grocery store with fresh produce and organic options.",
+    "fullDescription": "Community-focused grocery store featuring locally sourced produce, organic products, and specialty items.",
+    "phone": "(555) 678-9012",
+    "email": "info@freshmarketgrocery.com",
+    "address": "987 Market Street, Neighborhood, NY 10006",
+    "website": "www.freshmarketgrocery.com",
+    "logo": "🛒",
+    "featured": false,
+    "services": ["Fresh Produce", "Organic Products", "Deli Counter", "Bakery", "Home Delivery"],
+    "socialLinks": {
+      "facebook": "facebook.com/freshmarketgrocery",
+      "instagram": "instagram.com/freshmarketgrocery"
+    },
+    "hours": "Mon-Sun 7AM-10PM",
+    "coordinates": {
+      "lat": 40.7831,
+      "lng": -73.9712
+    }
+  }
+]

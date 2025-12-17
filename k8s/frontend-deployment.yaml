@@ -54,6 +54,8 @@ spec:
             secretKeyRef:
               name: yellowbooks-secrets
               key: DATABASE_URL
+        - name: NEXT_PUBLIC_API_URL
+          value: "http://sharnom.systems:31529"
         resources:
           requests:
             memory: "256Mi"

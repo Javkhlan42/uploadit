@@ -8,6 +8,11 @@ metadata:
     tier: api
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: backend
@@ -20,6 +25,7 @@ spec:
       containers:
       - name: backend
         image: 290817091060.dkr.ecr.us-east-1.amazonaws.com/uploadit-backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 4000
           name: http

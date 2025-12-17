@@ -28,6 +28,10 @@ COPY nx.json tsconfig.base.json tsconfig.json ./
 COPY eslint.config.mjs jest.config.ts jest.preset.js ./
 COPY apps/web ./apps/web
 COPY libs ./libs
+COPY prisma ./prisma
+
+# Generate Prisma client before building
+RUN npx prisma generate
 
 # Build libs first and create symlinks
 ENV NX_DAEMON=false

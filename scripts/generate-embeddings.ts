@@ -73,7 +73,7 @@ async function main() {
       errors++;
       console.error(
         `❌ Error processing ${business.businessName}:`,
-        error.message
+        error instanceof Error ? error.message : 'Unknown error'
       );
     }
   }

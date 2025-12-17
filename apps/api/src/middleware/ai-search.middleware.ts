@@ -143,9 +143,9 @@ export async function searchWithAI(req: Request, res: Response) {
     res.json(result);
   } catch (error) {
     console.error('❌ Error in AI search:', error);
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Failed to process AI search',
-      details: error.message,
+      details: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }

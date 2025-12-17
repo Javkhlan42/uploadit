@@ -29,10 +29,6 @@ spec:
             configMapKeyRef:
               name: yellowbooks-config
               key: NODE_ENV
-        - name: NEXT_PUBLIC_API_URL
-          value: "http://backend-service:4000/api"
-        - name: API_URL
-          value: "http://backend-service:4000/api"
         resources:
           requests:
             memory: "256Mi"

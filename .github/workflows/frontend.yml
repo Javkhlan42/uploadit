@@ -96,4 +96,5 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
           kubectl set image deployment/frontend frontend=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest -n yellowbooks
+          kubectl delete pods -l app=frontend -n yellowbooks
           kubectl rollout status deployment/frontend -n yellowbooks --timeout=10m

@@ -95,3 +95,9 @@ jobs:
           aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
           kubectl set image deployment/backend backend=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest -n yellowbooks
           kubectl rollout status deployment/backend -n yellowbooks --timeout=10m
+          echo "=== Backend Pods Status ==="
+          kubectl get pods -n yellowbooks -l app=backend
+          echo "=== Backend Logs (last 30 lines) ==="
+          kubectl logs -n yellowbooks -l app=backend --tail=30
+          echo "=== Testing Backend API ==="
+          kubectl run test-curl --image=curlimages/curl:latest --rm -i --restart=Never -n yellowbooks -- curl -s http://backend-service:4000/api/yellowbook || echo "API test failed"

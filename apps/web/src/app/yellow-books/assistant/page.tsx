@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+// AI-powered Yellow Pages Assistant
 interface Business {
   id: string;
   businessName: string;

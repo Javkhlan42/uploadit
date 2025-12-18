@@ -28,6 +28,7 @@ COPY nx.json tsconfig.base.json tsconfig.json ./
 COPY eslint.config.mjs jest.config.ts jest.preset.js ./
 COPY apps/web ./apps/web
 COPY libs ./libs
+COPY prisma ./prisma
 
 # Build libs first and create symlinks
 ENV NX_DAEMON=false
@@ -36,6 +37,9 @@ RUN npx nx run-many -t build -p @yellow-book/contract @yellow-book/config
 RUN mkdir -p node_modules/@yellow-book && \
     ln -s ../../libs/contract node_modules/@yellow-book/contract && \
     ln -s ../../libs/config node_modules/@yellow-book/config
+
+# Generate Prisma Client
+RUN npx prisma generate
 
 # Build only the web app
 ENV NEXT_TELEMETRY_DISABLED=1

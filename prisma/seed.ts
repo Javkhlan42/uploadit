@@ -6,9 +6,27 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database with Mongolian business data...');
   
-  // Clear existing data
+  // Clear existing data (but keep users for auth)
   await prisma.yellowBook.deleteMany();
-  await prisma.user.deleteMany();
+  
+  // Create admin user if not exists
+  const adminEmail = 'admin@yellowbook.mn';
+  const existingAdmin = await prisma.user.findUnique({
+    where: { email: adminEmail },
+  });
+  
+  if (!existingAdmin) {
+    await prisma.user.create({
+      data: {
+        email: adminEmail,
+        name: 'Admin User',
+        role: 'admin',
+      },
+    });
+    console.log('✅ Admin user created:', adminEmail);
+  } else {
+    console.log('ℹ️  Admin user already exists');
+  }
 
   // Монгол бизнесүүдийн өгөгдөл
   const yellowBookEntries = [

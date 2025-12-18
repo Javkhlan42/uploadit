@@ -28,6 +28,21 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'database',
   },
+  // CSRF protection enabled by default in NextAuth
+  // Using secure cookies in production
+  cookies: {
+    sessionToken: {
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
+  // Enable debug in development
+  debug: process.env.NODE_ENV === 'development',
 };
 
 const handler = NextAuth(authOptions);

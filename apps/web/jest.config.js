@@ -1,11 +1,10 @@
-import type { Config } from 'jest';
-import nextJest from 'next/jest.js';
+const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
   dir: './',
 });
 
-const config: Config = {
+const config = {
   displayName: '@yellow-book/web',
   preset: '../../jest.preset.js',
   transform: {
@@ -15,12 +14,11 @@ const config: Config = {
   coverageDirectory: '../../coverage/apps/web',
   testEnvironment: 'jsdom',
   transformIgnorePatterns: [
-    'node_modules/(?!(next-auth|@next-auth|@auth)/)',
+    'node_modules/(?!(next-auth|@auth)/)',
   ],
   moduleNameMapper: {
     '^next-auth/react$': '<rootDir>/__mocks__/next-auth-react.ts',
-    '^next-auth$': '<rootDir>/__mocks__/next-auth-react.ts',
   },
 };
 
-export default createJestConfig(config);
+module.exports = createJestConfig(config);

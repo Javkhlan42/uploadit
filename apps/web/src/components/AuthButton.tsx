@@ -1,8 +1,7 @@
 'use client';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
-import { User, LogOut, Github } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 export function AuthButton() {
   const { data: session, status } = useSession();
@@ -27,28 +26,25 @@ export function AuthButton() {
         )}
         <div className="hidden md:block">
           <p className="text-sm font-medium">{session.user.name}</p>
-          <p className="text-xs text-gray-500">{session.user.role}</p>
+          <p className="text-xs text-gray-500">{(session.user as any).role}</p>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
+        <button
           onClick={() => signOut()}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
         >
-          <LogOut className="h-4 w-4" />
-          <span className="hidden sm:inline">Sign Out</span>
-        </Button>
+          Sign Out
+        </button>
       </div>
     );
   }
 
   return (
-    <Button
+    <button
       onClick={() => signIn('github')}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm text-white hover:bg-gray-800"
     >
       <Github className="h-4 w-4" />
       Sign in with GitHub
-    </Button>
+    </button>
   );
 }

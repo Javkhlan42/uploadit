@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Search, Phone } from 'lucide-react';
+import { AuthButton } from '../components/AuthButton';
 
 const Header = () => {
   return (
@@ -16,7 +17,7 @@ const Header = () => {
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link 
               href="/" 
               className="text-gray-700 hover:text-yellow-600 px-3 py-2 text-sm font-medium transition-colors"
@@ -36,6 +37,7 @@ const Header = () => {
               <span>🤖</span>
               AI Assistant
             </Link>
+            <AuthButton />
           </nav>
 
           {/* Mobile menu button */}

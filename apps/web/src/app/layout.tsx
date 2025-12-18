@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './global.css';
-import { AuthProvider } from '../components/AuthProvider';
+import { Providers } from '../components/Providers';
 
 export const metadata: Metadata = {
   title: 'YellowBook - Business Directory',
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

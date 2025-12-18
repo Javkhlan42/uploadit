@@ -8,6 +8,7 @@ import { Phone, Mail, MapPin, Sparkles } from 'lucide-react';
 
 // Force dynamic rendering to avoid build-time API fetch
 export const dynamic = 'force-dynamic';
+// export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Yellow Books - Бүх бизнес',

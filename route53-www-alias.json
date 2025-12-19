@@ -1,0 +1,16 @@
+{
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "www.sharnom.systems",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "Z26RNL4JYFTOTI",
+          "DNSName": "k8s-ingressn-ingressn-497048ddcf-cce8f4090a2d9ecc.elb.us-east-1.amazonaws.com",
+          "EvaluateTargetHealth": false
+        }
+      }
+    }
+  ]
+}

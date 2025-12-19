@@ -157,12 +157,21 @@ export default async function YellowBooksPage() {
                 Орон нутгийн бизнесүүдийн бүрэн лавлах
               </p>
             </div>
-            <Link
-              href="/yellow-books/search"
-              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-medium rounded-lg transition-colors"
-            >
-              Дэвшилтэд хайлт 🔍
-            </Link>
+            <div className="flex gap-3">
+              <Link
+                href="/yellow-books/assistant"
+                className="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white font-medium rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2"
+              >
+                <Sparkles className="w-5 h-5" />
+                AI Assistant
+              </Link>
+              <Link
+                href="/yellow-books/search"
+                className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-medium rounded-lg transition-colors"
+              >
+                Дэвшилтэд хайлт 🔍
+              </Link>
+            </div>
           </div>
           
           <div className="flex gap-4 text-sm">

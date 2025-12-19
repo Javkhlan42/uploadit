@@ -20,7 +20,6 @@ const Map = dynamicImport(() => import('../../ui/Map'), {
       <div className="text-gray-500">Газрын зураг уншиж байна...</div>
     </div>
   ),
-  ssr: false,
 });
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {

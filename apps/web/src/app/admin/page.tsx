@@ -285,7 +285,7 @@ export default async function AdminPage() {
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    Role Check: session.user.role === 'admin'
+                    Role Check: session.user.role === &apos;admin&apos;
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
@@ -293,7 +293,7 @@ export default async function AdminPage() {
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                    Secure Cookies: httpOnly, sameSite: 'lax'
+                    Secure Cookies: httpOnly, sameSite: &apos;lax&apos;
                   </li>
                 </ul>
               </div>
@@ -302,7 +302,7 @@ export default async function AdminPage() {
         </div>
       </div>
     );
-  } catch (error) {
+  } catch {
     redirect('/');
   }
 }

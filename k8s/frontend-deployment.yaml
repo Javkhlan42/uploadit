@@ -17,6 +17,12 @@ spec:
         app: frontend
         tier: web
     spec:
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      - key: "karpenter.sh/disrupted"
+        operator: "Exists"
+        effect: "NoSchedule"
       containers:
       - name: frontend
         image: 290817091060.dkr.ecr.us-east-1.amazonaws.com/uploadit-frontend:latest

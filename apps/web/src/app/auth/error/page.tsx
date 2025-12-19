@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AlertCircle, ArrowLeft, Home } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
 import { Button } from '../../ui/button';
+import { Suspense } from 'react';
 
 const errorMessages: Record<string, string> = {
   Configuration: 'Серверийн тохиргоонд алдаа гарсан байна.',
@@ -22,7 +23,7 @@ const errorMessages: Record<string, string> = {
   default: 'Нэвтрэх үед алдаа гарлаа.',
 };
 
-export default function AuthErrorPage() {
+function ErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
   
@@ -85,5 +86,17 @@ export default function AuthErrorPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 flex items-center justify-center">
+        <div className="text-gray-500">Loading...</div>
+      </div>
+    }>
+      <ErrorContent />
+    </Suspense>
   );
 }

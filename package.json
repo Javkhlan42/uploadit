@@ -14,7 +14,10 @@
     "typecheck": "tsc --noEmit",
     "db:migrate": "prisma migrate dev",
     "db:seed": "ts-node prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "ai:setup": "node setup-ai.js",
+    "ai:embed": "ts-node tools/embed-businesses.ts",
+    "ai:test": "curl -X POST http://localhost:3333/api/ai/yellow-books/search -H \"Content-Type: application/json\" -d \"{\\\"question\\\": \\\"Сүхбаатар дүүрэгт сайн ресторан байна уу?\\\"}\""
   },
   "private": true,
   "devDependencies": {
@@ -134,6 +137,7 @@
     "react-dom": "^19.0.0",
     "react-leaflet": "^5.0.0",
     "tailwind-merge": "^3.3.1",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "@google/generative-ai": "^0.21.0"
   }
 }

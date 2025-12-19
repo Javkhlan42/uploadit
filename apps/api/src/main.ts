@@ -8,6 +8,9 @@ import { YellowBookEntrySchema } from '@yellow-book/contract';
 import * as fs from 'fs';
 import { Organization } from './types/organization';
 import { requireAdmin, csrfProtection, AuthRequest } from './middleware/auth';
+import { cosineSimilarity, hashString } from './utils/similarity';
+import { generateQueryEmbedding, generateAIResponse } from './services/ai.service';
+import { getCachedResponse, cacheResponse } from './services/cache.service';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -153,6 +156,144 @@ app.post('/api/admin/organizations', requireAdmin, csrfProtection, async (req: A
   } catch (error) {
     console.error('Error creating organization:', error);
     res.status(500).json({ error: 'Failed to create organization' });
+  }
+});
+
+// AI Assistant - Semantic Search with RAG
+app.post('/api/ai/yellow-books/search', async (req, res) => {
+  try {
+    const { question, city, category, limit = 5 } = req.body;
+    
+    if (!question || typeof question !== 'string') {
+      return res.status(400).json({ error: 'Question is required' });
+    }
+    
+    console.log('🤖 AI Search Request:', { question, city, category });
+    
+    // 1. Check Redis cache
+    const cacheKey = `ai:q:${hashString(question + (city || '') + (category || ''))}`;
+    const cached = await getCachedResponse(cacheKey);
+    
+    if (cached) {
+      console.log('✅ Cache HIT');
+      return res.json({ ...cached, fromCache: true });
+    }
+    
+    console.log('❌ Cache MISS - processing...');
+    
+    // 2. Generate embedding for the question
+    const questionEmbedding = await generateQueryEmbedding(question);
+    
+    // 3. Fetch businesses from DB with optional filters
+    const whereClause: any = {
+      embedding: { not: null }
+    };
+    
+    if (city) {
+      whereClause.city = { contains: city, mode: 'insensitive' };
+    }
+    
+    if (category) {
+      whereClause.category = { contains: category, mode: 'insensitive' };
+    }
+    
+    const businesses = await prisma.yellowBook.findMany({
+      where: whereClause,
+      select: {
+        id: true,
+        businessName: true,
+        category: true,
+        city: true,
+        state: true,
+        address: true,
+        phoneNumber: true,
+        description: true,
+        website: true,
+        embedding: true
+      }
+    });
+    
+    if (businesses.length === 0) {
+      const noResultResponse = {
+        answer: 'Уучлаарай, таны хүссэн критерт тохирох газар олдсонгүй.',
+        businesses: [],
+        metadata: { totalFound: 0, filtered: { city, category } }
+      };
+      await cacheResponse(cacheKey, noResultResponse);
+      return res.json(noResultResponse);
+    }
+    
+    // 4. Calculate cosine similarity for each business
+    interface BusinessWithScore {
+      business: typeof businesses[0];
+      similarity: number;
+    }
+    
+    const businessesWithScores: BusinessWithScore[] = businesses
+      .map(business => {
+        try {
+          const embedding = business.embedding as any as number[];
+          if (!Array.isArray(embedding)) {
+            return null;
+          }
+          const similarity = cosineSimilarity(questionEmbedding, embedding);
+          return { business, similarity };
+        } catch (error) {
+          console.error(`Error calculating similarity for ${business.businessName}:`, error);
+          return null;
+        }
+      })
+      .filter((item): item is BusinessWithScore => item !== null);
+    
+    // 5. Sort by similarity (descending) and take top N
+    businessesWithScores.sort((a, b) => b.similarity - a.similarity);
+    const topBusinesses = businessesWithScores.slice(0, Math.min(limit, 10));
+    
+    if (topBusinesses.length === 0) {
+      const noResultResponse = {
+        answer: 'Уучлаарай, таны асуултад тохирох газар олдсонгүй.',
+        businesses: [],
+        metadata: { totalFound: 0, filtered: { city, category } }
+      };
+      await cacheResponse(cacheKey, noResultResponse);
+      return res.json(noResultResponse);
+    }
+    
+    // 6. Generate AI response using RAG
+    const businessesForRAG = topBusinesses.map(item => {
+      const { embedding, ...businessData } = item.business;
+      return businessData;
+    });
+    
+    const aiAnswer = await generateAIResponse(question, businessesForRAG);
+    
+    // 7. Prepare response
+    const response = {
+      answer: aiAnswer,
+      businesses: topBusinesses.map(item => ({
+        ...item.business,
+        embedding: undefined, // Don't send embedding to frontend
+        similarity: item.similarity
+      })),
+      metadata: {
+        totalFound: topBusinesses.length,
+        filtered: { city, category },
+        model: 'gemini-pro'
+      }
+    };
+    
+    // 8. Cache the response
+    await cacheResponse(cacheKey, response);
+    
+    console.log('✅ AI Search completed');
+    res.json({ ...response, fromCache: false });
+    
+  } catch (error: any) {
+    console.error('Error in AI search:', error);
+    return res.status(500).json({ 
+      error: 'Failed to process AI search',
+      details: error?.message || 'Unknown error'
+    });
   }
 });
 

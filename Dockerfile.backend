@@ -63,6 +63,9 @@ COPY --from=builder /app/apps/api/dist ./dist
 # Copy runtime data files from builder stage
 COPY --from=builder /app/apps/api/src/data ./dist/data
 
+# Copy AI services, utils (they'll be in dist after build)
+# Note: These are bundled by webpack, so already in dist/main.js
+
 EXPOSE 4000
 
 CMD ["node", "dist/main.js"]

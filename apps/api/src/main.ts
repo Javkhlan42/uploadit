@@ -7,6 +7,7 @@ import { PrismaClient } from '@prisma/client';
 import { YellowBookEntrySchema } from '@yellow-book/contract';
 import * as fs from 'fs';
 import { Organization } from './types/organization';
+import { requireAdmin, csrfProtection, AuthRequest } from './middleware/auth';
 
 const app = express();
 const prisma = new PrismaClient();
@@ -120,7 +121,41 @@ app.get('/api/yellow-books', async (req, res) => {
     console.error('Error fetching yellow book entries:', error);
     res.status(500).json({ error: 'Failed to fetch yellow book entries' });
   }
-}); 
+});
+
+// Admin Routes - Protected with role-based guard
+app.get('/api/admin/stats', requireAdmin, async (req: AuthRequest, res) => {
+  try {
+    const userCount = await prisma.user.count();
+    const stats = {
+      users: userCount,
+      organizations: organizationsData.length,
+      categories: categoriesData.length,
+      admin: req.user?.email
+    };
+    res.json(stats);
+  } catch (error) {
+    console.error('Error fetching admin stats:', error);
+    res.status(500).json({ error: 'Failed to fetch admin statistics' });
+  }
+});
+
+app.post('/api/admin/organizations', requireAdmin, csrfProtection, async (req: AuthRequest, res) => {
+  try {
+    // Admin-only: Create new organization
+    // In production, this would save to database
+    const newOrg = req.body;
+    res.status(201).json({ 
+      message: 'Organization created successfully',
+      organization: newOrg,
+      createdBy: req.user?.email
+    });
+  } catch (error) {
+    console.error('Error creating organization:', error);
+    res.status(500).json({ error: 'Failed to create organization' });
+  }
+});
+
 // ..
 
 const port = process.env.PORT || 3333;

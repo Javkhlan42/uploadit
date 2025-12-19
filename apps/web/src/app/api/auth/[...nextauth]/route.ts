@@ -13,6 +13,10 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
+  pages: {
+    signIn: '/api/auth/signin',
+    error: '/auth/error',
+  },
   callbacks: {
     async session({ session, user }) {
       if (session?.user) {
@@ -38,8 +42,20 @@ export const authOptions: NextAuthOptions = {
       },
     },
   },
-  // Enable debug in development
-  debug: process.env.NODE_ENV === 'development',
+  // Enable debug mode to see detailed errors
+  debug: true,
+  // Logging
+  logger: {
+    error(code, metadata) {
+      console.error('NextAuth Error:', code, metadata);
+    },
+    warn(code) {
+      console.warn('NextAuth Warning:', code);
+    },
+    debug(code, metadata) {
+      console.log('NextAuth Debug:', code, metadata);
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

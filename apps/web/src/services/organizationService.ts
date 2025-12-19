@@ -1,6 +1,9 @@
 import { Organization } from '../types/organization';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+// Use internal service URL for server-side, public URL for client-side
+const API_BASE_URL = typeof window === 'undefined' 
+  ? (process.env.API_URL || 'http://backend-service:4000/api')
+  : (process.env.NEXT_PUBLIC_API_URL || '/api');
 
 export const organizationService = {
   // Get all organizations with optional filters
